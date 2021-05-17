@@ -1,4 +1,5 @@
 import 'package:devon4ng_flutter_application_template/config/config.dart';
+import 'package:devon4ng_flutter_application_template/model/network/authentication/token_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeedetail/employee_detail_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_request_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_response_dto.dart';
@@ -19,6 +20,10 @@ abstract class RestClient {
   @POST("/login")
   Future<void> login(
       @Body() LoginRequestDto dto, @Path("apiVersion") String apiVersion);
+
+  @GET("/csrf/{apiVersion}/token")
+  Future<TokenResponseResponseDto> getToken(
+      @Path("apiVersion") String apiVersion);
 
   //@POST("/employeemanagement/{apiVersion}/employee/")
   //Future<void> add(@Body() EmployeeDetailDto dto, @Path("apiVersion") String apiVersion);

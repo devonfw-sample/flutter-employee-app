@@ -9,7 +9,7 @@ part of 'rest_client.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://10.0.2.2:8081/services/rest/';
+    baseUrl ??= 'http://frpariticsd:8081/services/rest';
   }
 
   final Dio _dio;
@@ -33,6 +33,25 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     return null;
+  }
+
+  @override
+  Future<TokenResponseResponseDto> getToken(apiVersion) async {
+    ArgumentError.checkNotNull(apiVersion, 'apiVersion');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/csrf/$apiVersion/token',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = TokenResponseResponseDto.fromJson(_result.data);
+    return value;
   }
 
   @override

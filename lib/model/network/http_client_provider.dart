@@ -7,6 +7,7 @@ class HttpClientProvider {
   static const int SEND_TIMEOUT = 10000;
   static const int CONNECT_TIMEOUT = 10000;
   static const int RECEIVE_TIMEOUT = 30000;
+  static String csfrToken;
 
   final Dio client;
 
@@ -19,6 +20,9 @@ class HttpClientProvider {
         receiveTimeout: RECEIVE_TIMEOUT);
 
     var dio = Dio(baseOptions);
+    if (csfrToken != null) {
+      dio.options.headers.putIfAbsent("x-csrf-token", () => csfrToken);
+    }
     dio.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
@@ -27,7 +31,6 @@ class HttpClientProvider {
         error: true,
         compact: true,
         maxWidth: 90));
-
     var cookieJar = CookieJar();
     dio.interceptors.add(CookieManager(cookieJar));
 

@@ -9,10 +9,12 @@ class Endpoint {
   //static const String kDevEndpoint = "http://localhost:8081/services/rest/";
   static const String kDevEndpoint = "http://10.0.2.2:8081/services/rest/";
   static const String kTestEndpoint = "http://10.24.219.91:8081/services/rest/";
+  static const String kPLServerEndpoint =
+      "http://frpariticsd:8081/services/rest";
   static const String kProdEndpoint = "";
-  
+
   ///For static access (i.e. Rest Client)
-  static const String kCurrentEndopoint = kDevEndpoint;
+  static const String kCurrentEndopoint = kPLServerEndpoint;
 }
 
 ///APP CONFIGURATION MODEL
