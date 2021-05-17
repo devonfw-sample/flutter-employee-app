@@ -12,7 +12,7 @@ import 'employeeinsert/employee_insert_response_dto.dart';
 
 part 'rest_client.g.dart';
 
-@RestApi(baseUrl: Endpoint.kDevEndpoint)
+@RestApi(baseUrl: Endpoint.kCurrentEndopoint)
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
@@ -24,10 +24,12 @@ abstract class RestClient {
   //Future<void> add(@Body() EmployeeDetailDto dto, @Path("apiVersion") String apiVersion);
 
   @POST("/employeemanagement/{apiVersion}/employee/search")
-  Future<EmployeeListResponseDto> search(@Path("apiVersion") String apiVersion, @Body() EmployeeListRequestDto dto);
+  Future<EmployeeListResponseDto> search(@Path("apiVersion") String apiVersion,
+      @Body() EmployeeListRequestDto dto);
 
   @GET("/employeemanagement/{apiVersion}/employee/{id}")
-  Future<EmployeeDetailResponseDto> getDetail(@Path("apiVersion") String apiVersion, @Path("id") int id);
+  Future<EmployeeDetailResponseDto> getDetail(
+      @Path("apiVersion") String apiVersion, @Path("id") int id);
 
   @POST("/employeemanagement/{apiVersion}/employee")
   Future<EmployeeInsertResponseDto> insert(
@@ -38,5 +40,6 @@ abstract class RestClient {
   //Future<void> update(@Body() EmployeeDetailDto dto, @Path("apiVersion") String apiVersion);
 
   @DELETE("/employeemanagement/{apiVersion}/employee/{id}")
-  Future<void> delete(@Path("apiVersion") String apiVersion, @Path("id") int id);
+  Future<void> delete(
+      @Path("apiVersion") String apiVersion, @Path("id") int id);
 }

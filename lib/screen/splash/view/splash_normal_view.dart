@@ -13,7 +13,6 @@ class SplashNormalView extends StatefulWidget {
 }
 
 class _ScreenState extends AbstractState<ConfigurationBloc, SplashNormalView> {
-
   @override
   ConfigurationBloc provideBloc() {
     return ConfigurationBloc();
@@ -22,22 +21,22 @@ class _ScreenState extends AbstractState<ConfigurationBloc, SplashNormalView> {
   @override
   Widget buildWidget(BuildContext buildContext, AbstractBlocState state) {
     return Container(
-      child: Center(child: Image(
-        image: AssetImage('assets/images/capgemini_logo.png'),
-        width: 300
-      )),
+      child: Center(
+          child: Image(
+              image: AssetImage('assets/images/flutter_logo.png'), width: 300)),
       color: Provider.of<AppTheme>(buildContext).bg1,
     );
   }
 
   @override
-  BlocWidgetListener<AbstractBlocState> provideBlocListener(BuildContext buildContext) {
+  BlocWidgetListener<AbstractBlocState> provideBlocListener(
+      BuildContext buildContext) {
     return (context, state) {
-        if (state is OnSuccessState) {
-          Navigator.pushReplacementNamed(context, "/loginScreen");
-          return;
-        }
-      };
+      if (state is OnSuccessState) {
+        Navigator.pushReplacementNamed(context, "/loginScreen");
+        return;
+      }
+    };
   }
 
   @override
