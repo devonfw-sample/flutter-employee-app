@@ -17,8 +17,8 @@ class AuthenticationBloc
           yield LoadingState();
 
           var repository = AuthenticationRepository();
-          var response = await repository.login(event.username, event.password);
-          yield OnSuccessState(OnSuccessState.LOGIN, response);
+          await repository.login(event.username, event.password);
+          yield OnSuccessState(OnSuccessState.LOGIN, "okay");
         } else {
           yield NoConnectivityState();
         }

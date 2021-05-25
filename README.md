@@ -13,6 +13,13 @@ Flutter Sample App based on https://github.com/devonfw-forge/devonfw4flutter
 
 
 
+#### Code Generation on demand ####
+1) Run "flutter clean"
+2) Run "flutter pub get"
+3) Run "flutter pub run build_runner build --delete-conflicting-outputs"
+
+
+
 #### REST URLs configuration ####
 In file lib/config.dart set variables:
 - kDevEndpoint
