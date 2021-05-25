@@ -8,129 +8,116 @@ part of 'rest_client.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    ArgumentError.checkNotNull(_dio, '_dio');
     baseUrl ??= 'http://frpariticsd:8081/services/rest';
   }
 
   final Dio _dio;
 
-  String baseUrl;
+  String? baseUrl;
 
   @override
   Future<void> login(dto, apiVersion) async {
-    ArgumentError.checkNotNull(dto, 'dto');
-    ArgumentError.checkNotNull(apiVersion, 'apiVersion');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dto?.toJson() ?? <String, dynamic>{});
-    await _dio.request<void>('/login',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
+    _data.addAll(dto.toJson());
+    await _dio.fetch<void>(_setStreamType<void>(
+        Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+            .compose(_dio.options, '/login',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
   }
 
   @override
   Future<TokenResponseResponseDto> getToken(apiVersion) async {
-    ArgumentError.checkNotNull(apiVersion, 'apiVersion');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '/csrf/$apiVersion/token',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = TokenResponseResponseDto.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<TokenResponseResponseDto>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/csrf/$apiVersion/token',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = TokenResponseResponseDto.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<EmployeeListResponseDto> search(apiVersion, dto) async {
-    ArgumentError.checkNotNull(apiVersion, 'apiVersion');
-    ArgumentError.checkNotNull(dto, 'dto');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dto?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '/employeemanagement/$apiVersion/employee/search',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = EmployeeListResponseDto.fromJson(_result.data);
+    _data.addAll(dto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EmployeeListResponseDto>(Options(
+                method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+            .compose(
+                _dio.options, '/employeemanagement/$apiVersion/employee/search',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EmployeeListResponseDto.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<EmployeeDetailResponseDto> getDetail(apiVersion, id) async {
-    ArgumentError.checkNotNull(apiVersion, 'apiVersion');
-    ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '/employeemanagement/$apiVersion/employee/$id',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = EmployeeDetailResponseDto.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EmployeeDetailResponseDto>(Options(
+                method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+            .compose(
+                _dio.options, '/employeemanagement/$apiVersion/employee/$id',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EmployeeDetailResponseDto.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<EmployeeInsertResponseDto> insert(apiVersion, dto) async {
-    ArgumentError.checkNotNull(apiVersion, 'apiVersion');
-    ArgumentError.checkNotNull(dto, 'dto');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dto?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '/employeemanagement/$apiVersion/employee',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = EmployeeInsertResponseDto.fromJson(_result.data);
+    _data.addAll(dto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EmployeeInsertResponseDto>(
+            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+                .compose(
+                    _dio.options, '/employeemanagement/$apiVersion/employee',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EmployeeInsertResponseDto.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<void> delete(apiVersion, id) async {
-    ArgumentError.checkNotNull(apiVersion, 'apiVersion');
-    ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    await _dio.request<void>('/employeemanagement/$apiVersion/employee/$id',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'DELETE',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
+    await _dio.fetch<void>(_setStreamType<void>(
+        Options(method: 'DELETE', headers: <String, dynamic>{}, extra: _extra)
+            .compose(
+                _dio.options, '/employeemanagement/$apiVersion/employee/$id',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
+  }
+
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
+    if (T != dynamic &&
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
+      if (T == String) {
+        requestOptions.responseType = ResponseType.plain;
+      } else {
+        requestOptions.responseType = ResponseType.json;
+      }
+    }
+    return requestOptions;
   }
 }

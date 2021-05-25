@@ -33,7 +33,9 @@ class EmployeeDetailBloc
     } catch (e) {
       safePrint(e);
       if (e is DioError) {
-        safePrint('${e.response.statusCode} - ${e.response.statusMessage}');
+        var statusCode = e.response!.statusCode;
+        var statusMessage = e.response!.statusMessage;
+        safePrint('$statusCode - $statusMessage');
       }
 
       yield OnErrorState(

@@ -42,6 +42,6 @@ class _ScreenState extends AbstractState<ConfigurationBloc, SplashNormalView> {
   @override
   void initState() {
     super.initState();
-    getBloc.add(RetrieveConfigurationBlocEvent());
+    getBloc!.add(RetrieveConfigurationBlocEvent());
   }
 }

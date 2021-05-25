@@ -9,15 +9,11 @@ part of 'employee_list_response_dto.dart';
 EmployeeListResponseDto _$EmployeeListResponseDtoFromJson(
     Map<String, dynamic> json) {
   return EmployeeListResponseDto(
-    (json['content'] as List)
-        ?.map((e) => e == null
-            ? null
-            : EmployeeListContentResponseDto.fromJson(
-                e as Map<String, dynamic>))
-        ?.toList(),
-    json['pageable'] == null
-        ? null
-        : PageableDto.fromJson(json['pageable'] as Map<String, dynamic>),
+    (json['content'] as List<dynamic>)
+        .map((e) =>
+            EmployeeListContentResponseDto.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    PageableDto.fromJson(json['pageable'] as Map<String, dynamic>),
     json['totalElements'] as int,
   );
 }

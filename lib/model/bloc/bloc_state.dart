@@ -30,7 +30,7 @@ class OnSuccessState<Any> extends AbstractBlocState {
   OnSuccessState(this.id, this.data);
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [data!];
 }
 
 class OnErrorState extends AbstractBlocState {

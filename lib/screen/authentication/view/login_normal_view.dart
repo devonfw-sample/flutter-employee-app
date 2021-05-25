@@ -1,4 +1,3 @@
-import 'package:devon4ng_flutter_application_template/config/size_config.dart';
 import 'package:devon4ng_flutter_application_template/core_packages.dart';
 import 'package:devon4ng_flutter_application_template/model/bloc/authentication/authentication_bloc.dart';
 import 'package:devon4ng_flutter_application_template/model/bloc/bloc_state.dart';
@@ -31,12 +30,12 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
   Widget buildWidget(BuildContext buildContext, AbstractBlocState state) {
     double minWidth = 250;
     double maxWidth = MediaQuery.of(context).size.width * 50 / 100;
-    if(maxWidth < minWidth) {
+    if (maxWidth < minWidth) {
       maxWidth = minWidth;
     }
     double minHeight = 250;
     double maxHeight = MediaQuery.of(context).size.height * 60 / 100;
-    if(maxHeight < minHeight) {
+    if (maxHeight < minHeight) {
       maxHeight = minHeight;
     }
 
@@ -50,7 +49,7 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
       decoration: BoxDecoration(
         color: Provider.of<AppTheme>(context).bg1,
         border: Border.all(
-          color: Provider.of<AppTheme>(context).accent1,
+          color: Provider.of<AppTheme>(context).accent1!,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(10),
@@ -65,14 +64,15 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
     children.add(b1);
 
     return PlatformScaffold(
-      material: (_, __) => MaterialScaffoldData(resizeToAvoidBottomInset: false),
-      backgroundColor: Provider.of<AppTheme>(context).bg1,
-      body: Center(child: b1)
-    );
+        material: (_, __) =>
+            MaterialScaffoldData(resizeToAvoidBottomInset: false),
+        backgroundColor: Provider.of<AppTheme>(context).bg1,
+        body: Center(child: b1));
   }
 
   @override
-  BlocWidgetListener<AbstractBlocState> provideBlocListener(BuildContext buildContext) {
+  BlocWidgetListener<AbstractBlocState> provideBlocListener(
+      BuildContext buildContext) {
     return (context, state) {
       if (state is LoadingState) {
         showDialog(
@@ -102,32 +102,31 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
 
   Widget _loginForm(BuildContext buildContext) {
     return Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+                child: Column(children: <Widget>[
               Icon(Icons.login,
-              size: 50,
-              color: Provider.of<AppTheme>(context).mainMaterialColor),
+                  size: 50,
+                  color: Provider.of<AppTheme>(context).mainMaterialColor),
               UIScreenWidgetHelper.inputField(
                   buildContext,
                   _usernameTextController,
                   TextInputType.emailAddress,
-                  AppLocalizations.of(buildContext).username,
+                  AppLocalizations.of(buildContext)!.username,
                   false,
                   32),
               UIScreenWidgetHelper.inputField(
                 buildContext,
                 _passwordTextController,
                 TextInputType.text,
-                AppLocalizations.of(buildContext).password,
+                AppLocalizations.of(buildContext)!.password,
                 true,
                 16,
               ),
               UIScreenWidgetHelper.button(
-                  buildContext, AppLocalizations.of(buildContext).login, () {
+                  buildContext, AppLocalizations.of(buildContext)!.login, () {
                 _usernameTextController.text = "admin";
                 _passwordTextController.text = "admin";
 
@@ -138,15 +137,15 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
                       context: buildContext,
                       builder: UiDialogHelper.errorAlertDialog(
                           buildContext,
-                          AppLocalizations.of(buildContext)
+                          AppLocalizations.of(buildContext)!
                               .missing_credential_params));
                 } else {
-                  buildContext.read<AuthenticationBloc>().add(AuthenticateBlocEvent(
-                      _usernameTextController.text, _passwordTextController.text));
+                  buildContext.read<AuthenticationBloc>().add(
+                      AuthenticateBlocEvent(_usernameTextController.text,
+                          _passwordTextController.text));
                 }
               })
-        ])))
-      );
+            ]))));
   }
 
   @override

@@ -14,7 +14,7 @@ class Endpoint {
   static const String kProdEndpoint = "";
 
   ///For static access (i.e. Rest Client)
-  static const String kCurrentEndopoint = kPLServerEndpoint;
+  static const String kCurrentEndopoint = kTestEndpoint;
 }
 
 ///APP CONFIGURATION MODEL

@@ -11,22 +11,22 @@ enum ThemeType {
 class AppTheme {
   static ThemeType defaultTheme = ThemeType.Theme_Light;
 
-  ThemeType type;
-  final bool isDark;
-  final Color bg1;
-  final Color bgDisabled;
-  final Color surface1;
-  final Color accent1;
+  ThemeType? type;
+  final bool? isDark;
+  final Color? bg1;
+  final Color? bgDisabled;
+  final Color? surface1;
+  final Color? accent1;
   //final Color greyWeak;
   //final Color grey;
   //final Color greyMedium;
   //final Color greyStrong;
-  final Color focus;
-  final MaterialColor mainMaterialColor;
+  final Color? focus;
+  final MaterialColor? mainMaterialColor;
 
   /// Darkness adjusted text color. Will be Black in light mode, and White in dark
-  final Color mainTextColor;
-  final Color inverseTextColor;
+  final Color? mainTextColor;
+  final Color? inverseTextColor;
 
   static const int _mainColorValue = 0xFF0070AD;
   static const Color mainColor = Color(_mainColorValue);
@@ -47,8 +47,8 @@ class AppTheme {
   );
 
   /// Default constructor
-  AppTheme({
-      this.type,
+  AppTheme(
+      {this.type,
       this.bg1,
       this.bgDisabled,
       this.surface1,
@@ -61,8 +61,7 @@ class AppTheme {
       this.mainMaterialColor,
       this.mainTextColor,
       this.inverseTextColor,
-      this.isDark
-    }) {
+      this.isDark}) {
     //mainTextColor = isDark ? Colors.white : Colors.black;
     //inverseTextColor =
     //    inverseTextColor ?? (isDark ? Colors.black : Colors.white);
@@ -96,22 +95,22 @@ class AppTheme {
   ThemeData get themeData {
     var t = ThemeData.from(
       // Use the .dark() and .light() constructors to handle the text themes
-      textTheme: (isDark ? ThemeData.dark() : ThemeData.light()).textTheme,
+      textTheme: (isDark! ? ThemeData.dark() : ThemeData.light()).textTheme,
       // Use ColorScheme to generate the bulk of the color theme
       colorScheme: ColorScheme(
-          brightness: isDark ? Brightness.dark : Brightness.light,
-          primary: accent1,
-          primaryVariant: shift(accent1, .1),
-          secondary: accent1,
-          secondaryVariant: shift(accent1, .1),
-          background: bg1,
-          surface: surface1,
-          onBackground: mainTextColor,
-          onSurface: mainTextColor,
-          onError: mainTextColor,
-          onPrimary: inverseTextColor,
-          onSecondary: inverseTextColor,
-          error: focus),
+          brightness: isDark! ? Brightness.dark : Brightness.light,
+          primary: accent1!,
+          primaryVariant: shift(accent1!, .1),
+          secondary: accent1!,
+          secondaryVariant: shift(accent1!, .1),
+          background: bg1!,
+          surface: surface1!,
+          onBackground: mainTextColor!,
+          onSurface: mainTextColor!,
+          onError: mainTextColor!,
+          onPrimary: inverseTextColor!,
+          onSecondary: inverseTextColor!,
+          error: focus!),
     );
     // Apply additional styling that is missed by ColorScheme
     t.copyWith(
@@ -123,7 +122,7 @@ class AppTheme {
           selectionColor: surface1,
         ),
         buttonColor: accent1,
-        highlightColor: shift(accent1, .1),
+        highlightColor: shift(accent1!, .1),
         toggleableActiveColor: accent1);
     // All done, return the ThemeData
     return t;
@@ -133,7 +132,7 @@ class AppTheme {
   // Allows the view to just make something "stronger" or "weaker" without worrying what the current theme brightness is
   //      color = theme.shift(someColor, .1); //-10% lum in dark mode, +10% in light mode
   Color shift(Color c, double amt) {
-    amt *= (isDark ? -1 : 1);
+    amt *= (isDark! ? -1 : 1);
     var hslc = HSLColor.fromColor(c); // Convert to HSL
     double lightness =
         (hslc.lightness + amt).clamp(0, 1.0) as double; // Add/Remove lightness

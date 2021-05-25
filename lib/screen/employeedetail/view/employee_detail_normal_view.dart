@@ -12,7 +12,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:unicorndial/unicorndial.dart';
 
 class EmployeeDetailNormalView extends StatefulWidget {
   @override
@@ -21,9 +20,9 @@ class EmployeeDetailNormalView extends StatefulWidget {
 
 class _ScreenState
     extends AbstractState<EmployeeDetailBloc, EmployeeDetailNormalView> {
-  final floatingButtons = <UnicornButton>[];
-  EmployeeDetailResponseDto employeeDetail;
-  BuildContext widgetBC;
+  //final floatingButtons = <UnicornButton>[];
+  EmployeeDetailResponseDto? employeeDetail;
+  BuildContext? widgetBC;
 
   @override
   EmployeeDetailBloc provideBloc() {
@@ -42,9 +41,9 @@ class _ScreenState
       child: Text("Continue"),
       onPressed: () {
         //provideBloc().add(DeleteEmployeeBlocEvent(employeeDetail.id));
-        widgetBC
+        widgetBC!
             .read<EmployeeDetailBloc>()
-            .add(DeleteEmployeeBlocEvent(employeeDetail.id));
+            .add(DeleteEmployeeBlocEvent(employeeDetail!.id));
         Navigator.pop(context);
       },
     );
@@ -84,6 +83,8 @@ class _ScreenState
         ),
       ),
     );*/
+
+    /*
     floatingButtons.add(
       UnicornButton(
         hasLabel: true,
@@ -99,6 +100,7 @@ class _ScreenState
         ),
       ),
     );
+    */
     super.initState();
   }
 
@@ -107,9 +109,10 @@ class _ScreenState
     widgetBC = context;
 
     if (state is EmptyInitialState) {
-      final EmployeeListContentResponseDto item =
-          ModalRoute.of(context).settings.arguments;
-      getBloc.add(RetrieveEmployeeDetailBlocEvent(item.id));
+      EmployeeListContentResponseDto item = ModalRoute.of(context)!
+          .settings
+          .arguments as EmployeeListContentResponseDto;
+      getBloc!.add(RetrieveEmployeeDetailBlocEvent(item.id));
     }
 
     if (state is OnSuccessState) {
@@ -186,6 +189,7 @@ class _ScreenState
             child: UIScreenWidgetHelper.itemDetail(
                 context, "Email", employeeDetail.email)),
       ]),
+      /*
       Positioned(
           bottom: 20,
           right: 20,
@@ -197,6 +201,7 @@ class _ScreenState
               orientation: UnicornOrientation.VERTICAL,
               parentButton: Icon(Icons.add),
               childButtons: floatingButtons))
+              */
     ]);
 
     /* FabCircularMenu(children: <Widget>[

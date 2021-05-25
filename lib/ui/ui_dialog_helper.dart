@@ -9,9 +9,8 @@ class UiDialogHelper {
             children: [
               PlatformCircularProgressIndicator(),
               Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: PlatformText(AppLocalizations.of(context).loading)
-              )
+                  padding: EdgeInsets.only(left: 16),
+                  child: PlatformText(AppLocalizations.of(context)!.loading))
             ],
           ),
         );
@@ -19,11 +18,11 @@ class UiDialogHelper {
 
   static WidgetBuilder genericErrorAlertDialog(BuildContext context) {
     return (_) => PlatformAlertDialog(
-          title: Text(AppLocalizations.of(context).warning),
-          content: Text(AppLocalizations.of(context).generic_error),
+          title: Text(AppLocalizations.of(context)!.warning),
+          content: Text(AppLocalizations.of(context)!.generic_error),
           actions: <Widget>[
             PlatformDialogAction(
-              child: PlatformText(AppLocalizations.of(context).loading),
+              child: PlatformText(AppLocalizations.of(context)!.loading),
               onPressed: () => Navigator.pop(context),
             )
           ],
@@ -32,14 +31,14 @@ class UiDialogHelper {
 
   static WidgetBuilder errorAlertDialog(BuildContext context, String message) {
     return (_) => PlatformAlertDialog(
-          title: PlatformText(AppLocalizations.of(context).warning),
+          title: PlatformText(AppLocalizations.of(context)!.warning),
           content: PlatformText(
             message,
             textAlign: TextAlign.center,
           ),
           actions: <Widget>[
             PlatformDialogAction(
-              child: PlatformText(AppLocalizations.of(context).okay),
+              child: PlatformText(AppLocalizations.of(context)!.okay),
               onPressed: () => Navigator.pop(context),
             )
           ],

@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:devon4ng_flutter_application_template/model/bloc/simple_bloc_observer.dart';
 import 'package:devon4ng_flutter_application_template/screen/abstract_screen.dart';
 import 'package:devon4ng_flutter_application_template/screen/authentication/view/login_large_view.dart';

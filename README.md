@@ -9,6 +9,7 @@ Flutter Sample App based on https://github.com/devonfw-forge/devonfw4flutter
 4) Run "flutter pub run build_runner build --delete-conflicting-outputs"
 5) Configure splash screen file flutter_native_splash.yaml
 6) Run "flutter pub run flutter_native_splash:create"
+7) Enable Insecure HTTP Calls https://flutter.dev/docs/release/breaking-changes/network-policy-ios-android
 
 
 
