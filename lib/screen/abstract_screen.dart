@@ -43,7 +43,7 @@ class ScreenContainer extends StatelessWidget {
     safePrint("Use normal view: $useNormalView");
     safePrint("Device Pixel Ratio is: $devicePixelRatio");
     safePrint("************************************************");
-    
+
     if (useNormalView) {
       return normalViewFactory.call();
     } else {

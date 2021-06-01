@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../../responsive.dart';
+
 class EmployeeInsertNormalView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ScreenState();
@@ -30,6 +32,33 @@ class _ScreenState
 
   @override
   Widget buildWidget(BuildContext buildContext, AbstractBlocState state) {
+    double minWidth = 250;
+    double maxWidth = MediaQuery.of(context).size.width * 50 / 100;
+    if (maxWidth < minWidth) {
+      maxWidth = minWidth;
+    }
+    double minHeight = 250;
+    double maxHeight = MediaQuery.of(context).size.height * 60 / 100;
+    if (maxHeight < minHeight) {
+      maxHeight = minHeight;
+    }
+
+    var b1 = Container(
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+        maxWidth: maxWidth,
+        minHeight: minHeight,
+        maxHeight: maxHeight,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: Center(child: _insertForm(buildContext)),
+      ),
+    );
+
+    List<Widget> children = <Widget>[];
+    children.add(b1);
+
     return PlatformScaffold(
         material: (_, __) =>
             MaterialScaffoldData(resizeToAvoidBottomInset: false),
@@ -42,7 +71,9 @@ class _ScreenState
           backgroundColor: Provider.of<AppTheme>(context).mainMaterialColor,
           title: Text("Create Employee"),
         ),
-        body: _insertForm(buildContext));
+        body: Center(
+          child: Responsive.isMobile(context) ? _insertForm(buildContext) : b1,
+        ));
 
 /*
 
@@ -86,7 +117,7 @@ class _ScreenState
         //Navigator.pushReplacementNamed(context, "/employeeListScreen");
         var result = true;
         Navigator.pop(context, result);
-        
+
         return;
       }
 

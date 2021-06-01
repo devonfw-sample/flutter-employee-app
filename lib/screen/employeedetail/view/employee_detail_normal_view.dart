@@ -168,27 +168,35 @@ class _ScreenState
       BuildContext context, EmployeeDetailResponseDto employeeDetail) {
     return Stack(children: <Widget>[
       ListView(children: [
+        Container(
+          height: 150,
+          child: Icon(Icons.account_circle,
+
+              color: Provider.of<AppTheme>(context).mainMaterialColor, size:120),
+
+        ),
         Padding(
             padding: EdgeInsets.all(16.0),
             child: UIScreenWidgetHelper.itemDetail(
-                context, "Id", employeeDetail.id.toString())),
+                context, "Id:  ", employeeDetail.id.toString())),
+        Padding(
+            padding: EdgeInsets.all(16.0),
+            child: UIScreenWidgetHelper.itemDetail(context, "Employee Id:  ",
+                employeeDetail.employeeId.toString())),
         Padding(
             padding: EdgeInsets.all(16.0),
             child: UIScreenWidgetHelper.itemDetail(
-                context, "Employee Id", employeeDetail.employeeId.toString())),
+                context, "Name:  ", employeeDetail.name)),
         Padding(
             padding: EdgeInsets.all(16.0),
             child: UIScreenWidgetHelper.itemDetail(
-                context, "Name", employeeDetail.name)),
+                context, "Surame:  ", employeeDetail.surname)),
         Padding(
             padding: EdgeInsets.all(16.0),
             child: UIScreenWidgetHelper.itemDetail(
-                context, "Surame", employeeDetail.surname)),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Email", employeeDetail.email)),
+                context, "Email:  ", employeeDetail.email)),
       ]),
+
       /*
       Positioned(
           bottom: 20,
