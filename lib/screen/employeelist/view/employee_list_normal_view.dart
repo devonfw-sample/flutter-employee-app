@@ -3,12 +3,9 @@ import 'package:devon4ng_flutter_application_template/model/bloc/bloc_state.dart
 import 'package:devon4ng_flutter_application_template/model/bloc/employeelist/employee_list_bloc.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_content_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_response_dto.dart';
-import 'package:devon4ng_flutter_application_template/responsive.dart';
 import 'package:devon4ng_flutter_application_template/screen/abstract_state.dart';
-import 'package:devon4ng_flutter_application_template/screen/employeedetail/view/employee_detail_normal_view.dart';
 import 'package:devon4ng_flutter_application_template/themes.dart';
 import 'package:devon4ng_flutter_application_template/ui/ui_dialog_helper.dart';
-import 'package:devon4ng_flutter_application_template/ui/ui_screen_widget_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -38,7 +35,7 @@ class _ScreenState
 
   @override
   Widget buildWidget(BuildContext context, AbstractBlocState state) {
-    var body, bodyL;
+    var body;
     if (state is OnSuccessState<EmployeeListResponseDto>) {
       if (state.id == OnSuccessState.EMPLOYEE_LIST) {
         _list = state.data.content;
@@ -68,36 +65,7 @@ class _ScreenState
                 // Show a red background as the item is swiped away.
                 background: Container(
                     color: Provider.of<AppTheme>(context).mainMaterialColor),
-               child: _listViewItem(item),
-              );
-            });
-        bodyL = ListView.builder(
-            itemCount: state.data.content.length,
-            itemBuilder: (context, index) {
-              final item = state.data.content[index];
-              return Dismissible(
-                // Each Dismissible must contain a Key. Keys allow Flutter to
-                // uniquely identify widgets.
-                key: Key(item.employeeId.toString()),
-                // Provide a function that tells the app
-                // what to do after an item has been swiped away.
-                onDismissed: (direction) {
-                  // Remove the item from the data source.
-                  setState(() {
-                    _list!.removeAt(index);
-                  });
-
-                  getBloc!.add(DeleteEmployeeBlocEvent(item.id));
-                  // Then show a snackbar.
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text("$item dismissed")));
-                },
-
-                // Show a red background as the item is swiped away.
-                background: Container(
-                    color: Provider.of<AppTheme>(context).mainMaterialColor),
-
-                child: _listViewItemL(item),
+                child: _listViewItem(item),
               );
             });
       }
@@ -128,7 +96,7 @@ class _ScreenState
           title: Text("Employee List"),
           backgroundColor: Provider.of<AppTheme>(context).mainMaterialColor,
         ),
-        body: Responsive.isMobile(context) ? body : bodyL);
+        body: body);
   }
 
   Widget _listViewItem(EmployeeListContentResponseDto item) {
@@ -148,66 +116,6 @@ class _ScreenState
         ),
       ),
     );
-  }
-
-  Widget _listViewItemL(EmployeeListContentResponseDto item) {
-    return Card(
-      margin: EdgeInsets.only(top: 20, left: 20),
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width * 0.4,
-            alignment: Alignment.topRight,
-            child: ListTile(
-              onTap: () => {
-                Navigator.pushNamed(context, "/employeeDetailScreen",
-                    arguments: item),
-           
-              },
-              leading: Icon(Icons.account_circle),
-              trailing: Icon(Icons.comment),
-              title: Text("${item.surname} ${item.name}",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text("${item.email}",
-                  style: TextStyle(fontSize: FontSizes.s10)),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _listViewItemDetail(item) {
-    return Stack(children: <Widget>[
-      ListView(children: [
-        Container(
-          height: 150,
-          child: Icon(Icons.account_circle,
-              color: Provider.of<AppTheme>(context).mainMaterialColor,
-              size: 120),
-        ),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Id:  ", item.id.toString())),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Employee Id:  ", item.employeeId.toString())),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child:
-                UIScreenWidgetHelper.itemDetail(context, "Name:  ", item.name)),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Surame:  ", item.surname)),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Email:  ", item.email)),
-      ]),
-    ]);
   }
 
   @override

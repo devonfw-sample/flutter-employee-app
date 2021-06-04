@@ -1,7 +1,7 @@
 import 'package:devon4ng_flutter_application_template/core_packages.dart';
 import 'package:devon4ng_flutter_application_template/model/bloc/authentication/authentication_bloc.dart';
 import 'package:devon4ng_flutter_application_template/model/bloc/bloc_state.dart';
-import 'package:devon4ng_flutter_application_template/responsive.dart';
+
 import 'package:devon4ng_flutter_application_template/screen/abstract_state.dart';
 import 'package:devon4ng_flutter_application_template/ui/ui_dialog_helper.dart';
 import 'package:devon4ng_flutter_application_template/ui/ui_screen_widget_helper.dart';
@@ -29,33 +29,7 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
 
   @override
   Widget buildWidget(BuildContext buildContext, AbstractBlocState state) {
-    double minWidth = 250;
-    double maxWidth = MediaQuery.of(context).size.width * 50 / 100;
-    if (maxWidth < minWidth) {
-      maxWidth = minWidth;
-    }
-    double minHeight = 250;
-    double maxHeight = MediaQuery.of(context).size.height * 60 / 100;
-    if (maxHeight < minHeight) {
-      maxHeight = minHeight;
-    }
-
-    var b1 = Container(
-      constraints: BoxConstraints(
-        minWidth: minWidth,
-        maxWidth: maxWidth,
-        minHeight: minHeight,
-        maxHeight: maxHeight,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: Center(child: _loginForm(buildContext)),
-      ),
-    );
-
-    List<Widget> children = <Widget>[];
-    children.add(b1);
-
+ 
     return PlatformScaffold(
         material: (_, __) =>
             MaterialScaffoldData(resizeToAvoidBottomInset: false),
@@ -63,7 +37,7 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
 
         body: Center(
             child:
-                Responsive.isMobile(context) ? _loginForm(buildContext) : b1));
+              _loginForm(buildContext) ));
 
   }
 

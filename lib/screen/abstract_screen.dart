@@ -12,42 +12,36 @@ class ScreenContainer extends StatelessWidget {
 
   const ScreenContainer(this.normalViewFactory, this.largeViewFactory);
 
-  int _computeDimensionSelector() {
-    /*
-    if(kIsWeb) {
-      return 1536;
-
+  int _computeDimensionSelector(BuildContext context) {
+    if (MediaQuery.of(context).size.width >= 1536) {
+      return 1920;
     } else {
-      if(Platform.isAndroid) {
-        return 600;
-      }
-      if(Platform.isIOS) {
+      if (MediaQuery.of(context).size.width >= 600) {
         return 1536;
+      } else {
+        return 300;
       }
     }
-    */
-
-    return 600;
   }
 
   @override
   Widget build(BuildContext context) {
     var devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
     var width = MediaQuery.of(context).size.width;
-    var dimensionSelector = _computeDimensionSelector();
-    final useNormalView = width < dimensionSelector;
+    var dimensionSelector = _computeDimensionSelector(context);
+    final useLargeView = width < dimensionSelector;
 
     safePrint("************************************************");
     safePrint("Width dimension is: $width");
     safePrint("Width dimension selector is: $dimensionSelector");
-    safePrint("Use normal view: $useNormalView");
+    safePrint("Use large view: $useLargeView");
     safePrint("Device Pixel Ratio is: $devicePixelRatio");
     safePrint("************************************************");
 
-    if (useNormalView) {
-      return normalViewFactory.call();
-    } else {
+    if (useLargeView) {
       return largeViewFactory.call();
+    } else {
+      return normalViewFactory.call();
     }
   }
 }
