@@ -30,33 +30,8 @@ Variable "kCurrentEndopoint" is for setting the current environment. Run command
 
 
 
-#### Android Emulator Hosts Setup ####
-In order to reach the private hostname "frpariticsd" you have to update the /etch/hosts file into the Android filesystem.
-1) Using Android Studio, create a non-Play Store emulator
-2) Update PATH system variable including "emulator" and "adb" executables from Android SDK. 
-    - For OSX users:
-        1) Run command "sudo nano /etc/paths"
-        2) Append the path to the "emulator" command (i.e. /Users/YOUR_USERNAME/Library/Android/sdk/emulator)
-        3) Append the path to the "adb" command (i.e. /Users/YOUR_USERNAME/Library/Android/sdk/platform-tools)
-    - For Windows users:
-        1) export ANDROID_HOME="/Users/YOUR_USERNAME/Library/Android/sdk"
-        2) export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$PATH
-3) Run command "emulator -list-avds" to see the list of available emulators.
-4) Run command for writable system feature "emulator -avd YOUR_AVD_NAME -writable-system -no-snapshot-load -no-cache"
-5) Fetch the hosts file running "adb pull /etc/hosts"
-6) Edit the file and append line "10.24.219.91    frpariticsd"
-7) Run the following commands in order to run as root and to remount partition:
-    - adb devices  #you should see your devices
-    - adb root
-    - adb shell avbctl disable-verification
-    - adb reboot (it may take a minute)
-    - adb root
-    - adb remount
-7) After remount push the new hosts file to the emulator filesystem, running command "adb push hosts /etc/hosts"
-8) Open browser and navigate to "frpariticsd:1200" to check everything is fine
-
-
 #### Docker ####
+
 For building container image, run: "docker build -t devon4flutter-web ."
     (In case of cache problem, run: "docker build --no-cache -t devon4flutter-web .")
 

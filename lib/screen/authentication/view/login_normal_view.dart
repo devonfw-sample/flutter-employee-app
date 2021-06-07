@@ -29,7 +29,8 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
 
   @override
   Widget buildWidget(BuildContext buildContext, AbstractBlocState state) {
- 
+    
+
     return PlatformScaffold(
         material: (_, __) =>
             MaterialScaffoldData(resizeToAvoidBottomInset: false),
@@ -37,7 +38,7 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
 
         body: Center(
             child:
-              _loginForm(buildContext) ));
+                 _loginForm(buildContext) ));
 
   }
 

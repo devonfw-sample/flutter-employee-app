@@ -4,6 +4,7 @@ import 'package:devon4ng_flutter_application_template/model/bloc/employeelist/em
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_content_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/screen/abstract_state.dart';
+import 'package:devon4ng_flutter_application_template/screen/employeelist/util/detail.dart';
 import 'package:devon4ng_flutter_application_template/themes.dart';
 import 'package:devon4ng_flutter_application_template/ui/ui_dialog_helper.dart';
 import 'package:devon4ng_flutter_application_template/ui/ui_screen_widget_helper.dart';
@@ -21,12 +22,15 @@ class EmployeeListLargeView extends StatefulWidget {
 
 class _ScreenState
     extends AbstractState<EmployeeListBloc, EmployeeListLargeView> {
-  List<EmployeeListContentResponseDto>? _list;
+  late List<EmployeeListContentResponseDto> _list;
+  late int id;
 
   @override
   void initState() {
     super.initState();
     getBloc!.add(RetrieveEmployeeListBlocEvent());
+    //id initialized at 0
+    id = 0;
   }
 
   @override
@@ -41,34 +45,46 @@ class _ScreenState
       if (state.id == OnSuccessState.EMPLOYEE_LIST) {
         _list = state.data.content;
 
-        body = ListView.builder(
-            itemCount: state.data.content.length,
-            itemBuilder: (context, index) {
-              final item = state.data.content[index];
-              return Dismissible(
-                // Each Dismissible must contain a Key. Keys allow Flutter to
-                // uniquely identify widgets.
-                key: Key(item.employeeId.toString()),
-                // Provide a function that tells the app
-                // what to do after an item has been swiped away.
-                onDismissed: (direction) {
-                  // Remove the item from the data source.
-                  setState(() {
-                    _list!.removeAt(index);
-                  });
+        body = Row(
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: ListView.builder(
+                  itemCount: state.data.content.length,
+                  itemBuilder: (context, index) {
+                    final item = state.data.content[index];
+                    return Dismissible(
+                      // Each Dismissible must contain a Key. Keys allow Flutter to
+                      // uniquely identify widgets.
+                      key: Key(item.employeeId.toString()),
+                      // Provide a function that tells the app
+                      // what to do after an item has been swiped away.
+                      onDismissed: (direction) {
+                        // Remove the item from the data source.
+                        setState(() {
+                          _list.removeAt(index);
+                        });
 
-                  getBloc!.add(DeleteEmployeeBlocEvent(item.id));
-                  // Then show a snackbar.
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text("$item dismissed")));
-                },
+                        getBloc!.add(DeleteEmployeeBlocEvent(item.id));
+                        // Then show a snackbar.
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("$item dismissed")));
+                      },
 
-                // Show a red background as the item is swiped away.
-                background: Container(
-                    color: Provider.of<AppTheme>(context).mainMaterialColor),
-                child: _listViewItem(item),
-              );
-            });
+                      // Show a red background as the item is swiped away.
+                      background: Container(
+                          color:
+                              Provider.of<AppTheme>(context).mainMaterialColor),
+                      child: _listViewItem(item, state, _list),
+                    );
+                  }),
+            ),
+            Expanded(
+              // this is the widget container with the id index
+              child: (Detail(provideBloc(), state.data.content[id], state)),
+            ),
+          ],
+        );
       }
     } else {
       body = Container();
@@ -100,18 +116,18 @@ class _ScreenState
         body: body);
   }
 
-  Widget _listViewItem(EmployeeListContentResponseDto item) {
+  Widget _listViewItem(EmployeeListContentResponseDto item,
+      AbstractBlocState state, List<EmployeeListContentResponseDto> _list) {
     return Card(
       margin: EdgeInsets.only(top: 20, left: 20),
       child: Column(
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width * 0.4,
             alignment: Alignment.topRight,
             child: ListTile(
               onTap: () => {
-                Navigator.pushNamed(context, "/employeeDetailScreen",
-                    arguments: item),
+                //this ontap calls _selectItem
+                _selectItem(context, provideBloc(), item, _list, state),
               },
               leading: Icon(Icons.account_circle),
               trailing: Icon(Icons.comment),
@@ -126,37 +142,16 @@ class _ScreenState
     );
   }
 
-  Widget _listViewItemDetail(item) {
-    return Stack(children: <Widget>[
-      ListView(children: [
-        Container(
-          height: 150,
-          child: Icon(Icons.account_circle,
-              color: Provider.of<AppTheme>(context).mainMaterialColor,
-              size: 120),
-        ),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Id:  ", item.id.toString())),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Employee Id:  ", item.employeeId.toString())),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child:
-                UIScreenWidgetHelper.itemDetail(context, "Name:  ", item.name)),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Surame:  ", item.surname)),
-        Padding(
-            padding: EdgeInsets.all(16.0),
-            child: UIScreenWidgetHelper.itemDetail(
-                context, "Email:  ", item.email)),
-      ]),
-    ]);
+//this retrieves the selected item index and saves it in id, but it doesn't change it overall even refreshing the widget
+  _selectItem(
+      BuildContext context,
+      EmployeeListBloc bloc,
+      EmployeeListContentResponseDto item,
+      List<EmployeeListContentResponseDto> list,
+      AbstractBlocState state) {
+    id = list.indexOf(item);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => super.widget));
   }
 
   @override

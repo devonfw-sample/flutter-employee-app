@@ -12,6 +12,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 
+
 class EmployeeInsertNormalView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ScreenState();
@@ -31,6 +32,8 @@ class _ScreenState
 
   @override
   Widget buildWidget(BuildContext buildContext, AbstractBlocState state) {
+
+
     return PlatformScaffold(
         material: (_, __) =>
             MaterialScaffoldData(resizeToAvoidBottomInset: false),
