@@ -101,27 +101,21 @@ class _ScreenState
 
   Widget _listViewItem(EmployeeListContentResponseDto item) {
     return GestureDetector(
-        onTap: () => {
-              Navigator.pushNamed(context, "/employeeDetailScreen",
-                  arguments: item)
-            },
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              PlatformText(
-                "${item.surname} ${item.name}",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              PlatformText(
-                "${item.email}",
-                style: TextStyle(fontSize: FontSizes.s10),
-              )
-            ],
-          ),
-        ));
+      onTap: () => {
+        Navigator.pushNamed(context, "/employeeDetailScreen", arguments: item),
+        debugPrint('movieTitle: ${item.surname}')
+      },
+      child: Card(
+        child: ListTile(
+         leading: Icon(Icons.account_circle),
+              trailing: Icon(Icons.comment),
+              title: Text("${item.surname} ${item.name}",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: Text("${item.email}",
+                  style: TextStyle(fontSize: FontSizes.s10)),
+        ),
+      ),
+    );
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:devon4ng_flutter_application_template/core_packages.dart';
 import 'package:devon4ng_flutter_application_template/model/bloc/authentication/authentication_bloc.dart';
 import 'package:devon4ng_flutter_application_template/model/bloc/bloc_state.dart';
+import 'package:devon4ng_flutter_application_template/responsive.dart';
 import 'package:devon4ng_flutter_application_template/screen/abstract_state.dart';
 import 'package:devon4ng_flutter_application_template/ui/ui_dialog_helper.dart';
 import 'package:devon4ng_flutter_application_template/ui/ui_screen_widget_helper.dart';
@@ -46,14 +47,6 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
         minHeight: minHeight,
         maxHeight: maxHeight,
       ),
-      decoration: BoxDecoration(
-        color: Provider.of<AppTheme>(context).bg1,
-        border: Border.all(
-          color: Provider.of<AppTheme>(context).accent1!,
-          width: 2,
-        ),
-        borderRadius: BorderRadius.circular(10),
-      ),
       child: Padding(
         padding: const EdgeInsets.all(0.0),
         child: Center(child: _loginForm(buildContext)),
@@ -67,7 +60,11 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
         material: (_, __) =>
             MaterialScaffoldData(resizeToAvoidBottomInset: false),
         backgroundColor: Provider.of<AppTheme>(context).bg1,
-        body: Center(child: b1));
+
+        body: Center(
+            child:
+                Responsive.isMobile(context) ? _loginForm(buildContext) : b1));
+
   }
 
   @override
@@ -123,7 +120,7 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginNormalView> {
                 TextInputType.text,
                 AppLocalizations.of(buildContext)!.password,
                 true,
-                16,
+                32,
               ),
               UIScreenWidgetHelper.button(
                   buildContext, AppLocalizations.of(buildContext)!.login, () {

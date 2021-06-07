@@ -8,7 +8,6 @@ import 'package:devon4ng_flutter_application_template/model/network/employeelist
 import 'package:devon4ng_flutter_application_template/model/repository/abstract_repository.dart';
 
 class EmployeeListRepository extends AbstractRepository {
-
   Future<EmployeeListResponseDto> search(int pageSize, int pageNumber) {
     var sort = PageableSortDto("employeeId", "ASC");
     var pageable = PageableDto(pageSize, pageNumber, [sort]);
@@ -21,8 +20,10 @@ class EmployeeListRepository extends AbstractRepository {
     return restClient.getDetail(apiVersion, id);
   }
 
-  Future<EmployeeInsertResponseDto> insert(String name, String surname, String email) {
-    EmployeeInsertRequestDto dto = EmployeeInsertRequestDto(name, surname, email);
+  Future<EmployeeInsertResponseDto> insert(
+      String name, String surname, String email) {
+    EmployeeInsertRequestDto dto =
+        EmployeeInsertRequestDto(name, surname, email);
     return restClient.insert(apiVersion, dto);
   }
 

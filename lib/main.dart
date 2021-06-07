@@ -32,6 +32,7 @@ class AppBootstrapper extends StatefulWidget {
   _AppBootstrapperState createState() => _AppBootstrapperState();
 }
 
+// comentario
 typedef ViewFactory = StatefulWidget Function();
 
 class _AppBootstrapperState extends State<AppBootstrapper> {
