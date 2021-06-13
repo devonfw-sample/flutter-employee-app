@@ -135,6 +135,10 @@ class _ScreenState
 
       if (state is OnSuccessState) {
         Navigator.pop(context);
+
+        if (state.id == OnSuccessState.EMPLOYEE_DELETE) {
+          getBloc!.add(RetrieveEmployeeListBlocEvent());
+        }
       }
 
       if (state is OnErrorState) {

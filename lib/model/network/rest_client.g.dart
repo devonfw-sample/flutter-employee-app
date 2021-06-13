@@ -30,21 +30,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<TokenResponseResponseDto> getToken(apiVersion) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<TokenResponseResponseDto>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/csrf/$apiVersion/token',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TokenResponseResponseDto.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<EmployeeListResponseDto> search(apiVersion, dto) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
