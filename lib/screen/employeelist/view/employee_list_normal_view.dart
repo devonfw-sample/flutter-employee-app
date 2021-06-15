@@ -108,7 +108,14 @@ class _ScreenState
       child: Card(
         child: ListTile(
           leading: Icon(Icons.account_circle),
-          trailing: Icon(Icons.comment),
+          trailing: GestureDetector(
+            child: Icon(Icons.comment),
+            onTap: () => {
+              Navigator.pushNamed(context, "/employeeDetailScreen",
+                  arguments: item),
+              debugPrint('movieTitle: ${item.surname}')
+            },
+          ),
           title: Text("${item.surname} ${item.name}",
               style: TextStyle(fontWeight: FontWeight.bold)),
           subtitle:
