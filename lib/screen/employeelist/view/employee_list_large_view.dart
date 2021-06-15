@@ -118,7 +118,7 @@ class _ScreenState
   Widget _listViewItem(EmployeeListContentResponseDto item,
       AbstractBlocState state, List<EmployeeListContentResponseDto> _list) {
     return Card(
-      margin: EdgeInsets.only(top: 20, left: 20),
+      margin: EdgeInsets.only(top: 20, right: 20, left: 20),
       child: Column(
         children: <Widget>[
           Container(
@@ -128,7 +128,14 @@ class _ScreenState
                 _selectItem(context, provideBloc(), item, _list),
               },
               leading: Icon(Icons.account_circle),
-              trailing: Icon(Icons.comment),
+              trailing: GestureDetector(
+                child: Icon(Icons.comment),
+                onTap: () => {
+                  Navigator.pushNamed(context, "/employeeDetailScreen",
+                      arguments: item),
+                  debugPrint('movieTitle: ${item.surname}')
+                },
+              ),
               title: Text("${item.surname} ${item.name}",
                   style: TextStyle(fontWeight: FontWeight.bold)),
               subtitle: Text("${item.email}",
@@ -146,8 +153,6 @@ class _ScreenState
       EmployeeListContentResponseDto item,
       List<EmployeeListContentResponseDto> list) {
     id = list.indexOf(item);
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => super.widget));
   }
 
   @override
