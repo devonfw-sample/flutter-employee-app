@@ -11,8 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
-
-
 class EmployeeInsertLargeView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ScreenState();

@@ -29,6 +29,8 @@ class _ScreenState
   void initState() {
     super.initState();
     getBloc!.add(RetrieveEmployeeListBlocEvent());
+    //id initialized at 0
+    id = 0;
   }
 
   @override

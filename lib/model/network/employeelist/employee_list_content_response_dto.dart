@@ -10,7 +10,8 @@ class EmployeeListContentResponseDto {
   final String surname;
   final String email;
 
-  EmployeeListContentResponseDto(this.modificationCounter, this.id, this.employeeId, this.name, this.surname, this.email);
+  EmployeeListContentResponseDto(this.modificationCounter, this.id,
+      this.employeeId, this.name, this.surname, this.email);
 
   factory EmployeeListContentResponseDto.fromJson(Map<String, dynamic> json) =>
       _$EmployeeListContentResponseDtoFromJson(json);

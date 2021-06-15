@@ -60,7 +60,11 @@ class _ScreenState extends AbstractState<AuthenticationBloc, LoginLargeView> {
         material: (_, __) =>
             MaterialScaffoldData(resizeToAvoidBottomInset: false),
         backgroundColor: Provider.of<AppTheme>(context).bg1,
-        body: Center(child: b1));
+
+        body: Center(
+            child:
+                b1));
+
   }
 
   @override

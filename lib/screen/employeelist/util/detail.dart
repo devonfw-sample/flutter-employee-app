@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:devon4ng_flutter_application_template/model/bloc/bloc_state.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_content_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/screen/employeelist/view/employee_list_large_view.dart';
@@ -20,7 +19,6 @@ class Detail extends StatefulWidget {
   EmployeeListBloc _bloc;
   EmployeeListContentResponseDto item;
   AbstractBlocState state;
-
   Detail(this._bloc, this.item, this.state);
   _DetailState createState() => _DetailState(this._bloc, this.item, this.state);
 }
