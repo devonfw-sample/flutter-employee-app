@@ -8,7 +8,7 @@ part of 'rest_client.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://10.24.219.91:8081/services/rest/';
+    baseUrl ??= 'http://frpariticsd:8081/services/rest';
   }
 
   final Dio _dio;
@@ -27,21 +27,6 @@ class _RestClient implements RestClient {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
-  }
-
-  @override
-  Future<TokenResponseResponseDto> getToken(apiVersion) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<TokenResponseResponseDto>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/csrf/$apiVersion/token',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TokenResponseResponseDto.fromJson(_result.data!);
-    return value;
   }
 
   @override
