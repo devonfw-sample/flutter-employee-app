@@ -38,7 +38,7 @@ abstract class RestClient {
       @Body() EmployeeInsertRequestDto dto);
 
   //@POST("/employeemanagement/{apiVersion}/employee/")
-  //Future<void> update(@Body() EmployeeDetailDto dto, @Path("apiVersion") String apiVersion);
+  //Future<void> update(@Body() EmployeeInsertRequestDto dto, @Path("apiVersion") String apiVersion);
 
   @DELETE("/employeemanagement/{apiVersion}/employee/{id}")
   Future<void> delete(

@@ -73,7 +73,7 @@ Future<EmployeeInsertResponseDto> insert(apiVersion, dto) async {
     _data.addAll(dto.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<EmployeeInsertResponseDto>(
-            Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
+            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
                 .compose(
                     _dio.options, '/employeemanagement/$apiVersion/employee',
                     queryParameters: queryParameters, data: _data)
@@ -81,6 +81,9 @@ Future<EmployeeInsertResponseDto> insert(apiVersion, dto) async {
     final value = EmployeeInsertResponseDto.fromJson(_result.data!);
     return value;
   }
+
+  
+
 
 
 

@@ -89,7 +89,7 @@ class _AppBootstrapperState extends State<AppBootstrapper> {
               () => EmployeeInsertNormalView(),
               () => EmployeeInsertLargeView(),
             ),
-             "/employeeUpdateScreen": (context) => ScreenContainer(
+        "/employeeUpdateScreen": (context) => ScreenContainer(
               () => EmployeeUpdateNormalView(),
               () => EmployeeUpdateLargeView(),
             ),
