@@ -63,14 +63,17 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<EmployeeInsertResponseDto> insert(apiVersion, dto) async {
+
+
+
+Future<EmployeeInsertResponseDto> insert(apiVersion, dto) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(dto.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<EmployeeInsertResponseDto>(
-            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+            Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
                 .compose(
                     _dio.options, '/employeemanagement/$apiVersion/employee',
                     queryParameters: queryParameters, data: _data)
@@ -78,6 +81,8 @@ class _RestClient implements RestClient {
     final value = EmployeeInsertResponseDto.fromJson(_result.data!);
     return value;
   }
+
+
 
   @override
   Future<void> delete(apiVersion, id) async {

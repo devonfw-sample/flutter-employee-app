@@ -100,20 +100,21 @@ class _ScreenState
   }
 
   Widget _listViewItem(EmployeeListContentResponseDto item) {
-    return GestureDetector(
-      onTap: () => {
-        Navigator.pushNamed(context, "/employeeDetailScreen", arguments: item),
-        debugPrint('movieTitle: ${item.surname}')
-      },
-      child: Card(
+    return  Card(
         child: ListTile(
-          leading: Icon(Icons.account_circle),
-          trailing: GestureDetector(
-            child: Icon(Icons.comment),
+          leading: InkWell(
+            child: Icon(Icons.account_circle_outlined),
             onTap: () => {
               Navigator.pushNamed(context, "/employeeDetailScreen",
+                  arguments: item)
+            },
+          ),
+          trailing: InkWell(
+            child: Icon(Icons.border_color_outlined),
+            onTap: () => {
+              Navigator.pushNamed(context, "/employeeUpdateScreen",
                   arguments: item),
-              debugPrint('movieTitle: ${item.surname}')
+            
             },
           ),
           title: Text("${item.surname} ${item.name}",
@@ -121,7 +122,7 @@ class _ScreenState
           subtitle:
               Text("${item.email}", style: TextStyle(fontSize: FontSizes.s10)),
         ),
-      ),
+      
     );
   }
 

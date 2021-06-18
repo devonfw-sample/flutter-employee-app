@@ -8,6 +8,8 @@ import 'package:devon4ng_flutter_application_template/screen/employeeinsert/view
 import 'package:devon4ng_flutter_application_template/screen/employeeinsert/view/employee_insert_normal_view.dart';
 import 'package:devon4ng_flutter_application_template/screen/employeelist/view/employee_list_large_view.dart';
 import 'package:devon4ng_flutter_application_template/screen/employeelist/view/employee_list_normal_view.dart';
+import 'package:devon4ng_flutter_application_template/screen/employeeupdate/employee_update_large.dart';
+import 'package:devon4ng_flutter_application_template/screen/employeeupdate/employee_update_normal.dart';
 import 'package:devon4ng_flutter_application_template/screen/splash/view/splash_large_view.dart';
 import 'package:devon4ng_flutter_application_template/screen/splash/view/splash_normal_view.dart';
 import 'package:devon4ng_flutter_application_template/themes.dart';
@@ -86,6 +88,10 @@ class _AppBootstrapperState extends State<AppBootstrapper> {
         "/employeeInsertScreen": (context) => ScreenContainer(
               () => EmployeeInsertNormalView(),
               () => EmployeeInsertLargeView(),
+            ),
+             "/employeeUpdateScreen": (context) => ScreenContainer(
+              () => EmployeeUpdateNormalView(),
+              () => EmployeeUpdateLargeView(),
             ),
       },
     );

@@ -6,4 +6,5 @@ abstract class AbstractRepository {
   var apiVersion = "v1";
 
   RestClient restClient = RestClient(HttpClientProvider.standard().client);
+  
 }

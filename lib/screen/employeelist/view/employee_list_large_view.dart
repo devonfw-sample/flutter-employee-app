@@ -80,7 +80,7 @@ class _ScreenState
                   }),
             ),
             Expanded(
-              child: (Detail(provideBloc(), state.data.content[id], state)),
+              child: Container(),
             ),
           ],
         );
@@ -124,16 +124,18 @@ class _ScreenState
           Container(
             alignment: Alignment.topRight,
             child: ListTile(
-              onTap: () => {
-                _selectItem(context, provideBloc(), item, _list),
-              },
-              leading: Icon(Icons.account_circle),
-              trailing: GestureDetector(
-                child: Icon(Icons.comment),
+              leading: InkWell(
+                child: Icon(Icons.account_circle_outlined),
                 onTap: () => {
                   Navigator.pushNamed(context, "/employeeDetailScreen",
                       arguments: item),
-                  debugPrint('movieTitle: ${item.surname}')
+                },
+              ),
+              trailing: InkWell(
+                child: Icon(Icons.border_color_outlined),
+                onTap: () => {
+                  Navigator.pushNamed(context, "/employeeUpdateScreen",
+                      arguments: item),
                 },
               ),
               title: Text("${item.surname} ${item.name}",
