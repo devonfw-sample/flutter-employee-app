@@ -171,9 +171,8 @@ class _ScreenState
         Container(
           height: 150,
           child: Icon(Icons.account_circle,
-
-              color: Provider.of<AppTheme>(context).mainMaterialColor, size:120),
-
+              color: Provider.of<AppTheme>(context).mainMaterialColor,
+              size: 120),
         ),
         Padding(
             padding: EdgeInsets.all(16.0),

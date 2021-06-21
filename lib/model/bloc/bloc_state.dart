@@ -23,6 +23,7 @@ class OnSuccessState<Any> extends AbstractBlocState {
   static const int EMPLOYEE_LIST = 3;
   static const int EMPLOYEE_DETAIL = 4;
   static const int EMPLOYEE_DELETE = 5;
+  static const int EMPLOYEE_UPDATE = 6;
 
   final int id;
   final Any data;

@@ -38,6 +38,15 @@ class EmployeeUpdateBloc
   }
 }
 
+class RetrieveEmployeeDetailBlocEvent extends AbstractBlocEvent {
+  final int id;
+
+  RetrieveEmployeeDetailBlocEvent(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
+
 class EmployeeUpdateBlocEvent extends AbstractBlocEvent {
   final String name;
   final String surname;
