@@ -5,6 +5,8 @@ import 'package:devon4ng_flutter_application_template/model/network/employeeinse
 import 'package:devon4ng_flutter_application_template/model/network/employeeinsert/employee_insert_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_request_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_response_dto.dart';
+import 'package:devon4ng_flutter_application_template/model/network/employeeupdate/employee_update_request_dto.dart';
+import 'package:devon4ng_flutter_application_template/model/network/employeeupdate/employee_update_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/repository/abstract_repository.dart';
 
 class EmployeeListRepository extends AbstractRepository {
@@ -30,4 +32,19 @@ class EmployeeListRepository extends AbstractRepository {
   Future<void> delete(int id) {
     return restClient.delete(apiVersion, id);
   }
+
+
+  
+  Future<EmployeeUpdateResponseDto> update(
+      String name, String surname, String email) {
+    EmployeeUpdateRequestDto dto =
+        EmployeeUpdateRequestDto(name, surname, email);
+    return restClient.update(dto, apiVersion);
+  }
+
+  
+
+
+  
+
 }

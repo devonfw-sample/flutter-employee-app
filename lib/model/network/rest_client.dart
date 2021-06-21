@@ -10,6 +10,8 @@ import 'package:retrofit/retrofit.dart';
 import 'authentication/login_request_dto.dart';
 import 'employeeinsert/employee_insert_request_dto.dart';
 import 'employeeinsert/employee_insert_response_dto.dart';
+import 'employeeupdate/employee_update_request_dto.dart';
+import 'employeeupdate/employee_update_response_dto.dart';
 
 part 'rest_client.g.dart';
 
@@ -37,8 +39,8 @@ abstract class RestClient {
       @Path("apiVersion") String apiVersion,
       @Body() EmployeeInsertRequestDto dto);
 
-  //@POST("/employeemanagement/{apiVersion}/employee/")
-  //Future<void> update(@Body() EmployeeInsertRequestDto dto, @Path("apiVersion") String apiVersion);
+  @POST("/employeemanagement/{apiVersion}/employee/")
+  Future<EmployeeUpdateResponseDto> update(@Body() EmployeeUpdateRequestDto dto, @Path("apiVersion") String apiVersion);
 
   @DELETE("/employeemanagement/{apiVersion}/employee/{id}")
   Future<void> delete(

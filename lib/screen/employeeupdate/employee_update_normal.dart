@@ -1,5 +1,6 @@
 import 'package:devon4ng_flutter_application_template/model/bloc/bloc_state.dart';
-import 'package:devon4ng_flutter_application_template/model/bloc/employeeinsert/employee_insert_bloc.dart';
+
+import 'package:devon4ng_flutter_application_template/model/bloc/employeeupdate/employee_update_bloc.dart';
 import 'package:devon4ng_flutter_application_template/screen/abstract_state.dart';
 import 'package:devon4ng_flutter_application_template/themes.dart';
 import 'package:devon4ng_flutter_application_template/ui/ui_dialog_helper.dart';
@@ -19,15 +20,15 @@ class EmployeeUpdateNormalView extends StatefulWidget {
 }
 
 class _ScreenState
-    extends AbstractState<EmployeeInsertBloc, EmployeeUpdateNormalView> {
+    extends AbstractState<EmployeeUpdateBloc, EmployeeUpdateNormalView> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
   final TextEditingController _surnameTextController = TextEditingController();
 
   @override
-  EmployeeInsertBloc provideBloc() {
-    return EmployeeInsertBloc();
+  EmployeeUpdateBloc provideBloc() {
+    return EmployeeUpdateBloc();
   }
 
   @override
@@ -138,8 +139,8 @@ class _ScreenState
                   builder: UiDialogHelper.errorAlertDialog(
                       buildContext, "Missing parameters"));
             } else {
-              buildContext.read<EmployeeInsertBloc>().add(
-                  EmployeeInsertBlocEvent(_nameTextController.text,
+              buildContext.read<EmployeeUpdateBloc>().add(
+                  EmployeeUpdateBlocEvent(_nameTextController.text,
                       _surnameTextController.text, _emailTextController.text));
             }
           })
