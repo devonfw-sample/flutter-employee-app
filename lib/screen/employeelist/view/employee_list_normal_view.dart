@@ -100,31 +100,33 @@ class _ScreenState
   }
 
   Widget _listViewItem(EmployeeListContentResponseDto item) {
-    return Card(
-      child: ListTile(
-        leading: InkWell(
-          child: Icon(Icons.account_circle_outlined),
-          onTap: () => {
-            Navigator.pushNamed(context, "/employeeDetailScreen",
-                arguments: item)
-          },
+    return  Card(
+        child: ListTile(
+          leading: InkWell(
+            child: Icon(Icons.account_circle_outlined),
+            onTap: () => {
+              Navigator.pushNamed(context, "/employeeDetailScreen",
+                  arguments: item)
+            },
+          ),
+          trailing: InkWell(
+            child: Icon(Icons.border_color_outlined),
+            onTap: () async {
+                  var results = await Navigator.pushNamed(
+                      context, "/employeeUpdateScreen",
+                      arguments: item);
+                  if (results != null) {
+                    getBloc!.add(RetrieveEmployeeListBlocEvent());
+                  }
+            
+            },
+          ),
+          title: Text("${item.surname} ${item.name}",
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          subtitle:
+              Text("${item.email}", style: TextStyle(fontSize: FontSizes.s10)),
         ),
-        trailing: InkWell(
-          child: Icon(Icons.border_color_outlined),
-          onTap: () async {
-            var results = await Navigator.pushNamed(
-                context, "/employeeUpdateScreen",
-                arguments: item);
-            if (results != null) {
-              getBloc!.add(RetrieveEmployeeListBlocEvent());
-            }
-          },
-        ),
-        title: Text("${item.surname} ${item.name}",
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle:
-            Text("${item.email}", style: TextStyle(fontSize: FontSizes.s10)),
-      ),
+      
     );
   }
 
