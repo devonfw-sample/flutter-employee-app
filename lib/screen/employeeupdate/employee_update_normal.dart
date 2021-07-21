@@ -13,8 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
-
-
 class EmployeeUpdateNormalView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ScreenState();
@@ -34,14 +32,12 @@ class _ScreenState
 
   @override
   Widget buildWidget(BuildContext buildContext, AbstractBlocState state) {
-    
     if (state is EmptyInitialState) {
       EmployeeListContentResponseDto item = ModalRoute.of(context)!
           .settings
           .arguments as EmployeeListContentResponseDto;
       getBloc!.add(RetrieveEmployeeIdBlocEvent(item.id));
     }
-
 
     return PlatformScaffold(
         material: (_, __) =>
@@ -53,7 +49,7 @@ class _ScreenState
         backgroundColor: Provider.of<AppTheme>(context).bg1,
         appBar: PlatformAppBar(
           backgroundColor: Provider.of<AppTheme>(context).mainMaterialColor,
-          title: Text("Create Employee"),
+          title: Text("Update Employee"),
         ),
         body: Center(
           child: _insertForm(buildContext),

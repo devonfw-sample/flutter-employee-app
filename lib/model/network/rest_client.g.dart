@@ -6,10 +6,9 @@ part of 'rest_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://10.30.90.12:8081/services/rest';
+    baseUrl ??= 'http://frpariticsd:8081/services/rest';
   }
 
   final Dio _dio;
@@ -64,10 +63,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-
-
-
-Future<EmployeeInsertResponseDto> insert(apiVersion, dto) async {
+  Future<EmployeeInsertResponseDto> insert(apiVersion, dto) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -83,9 +79,7 @@ Future<EmployeeInsertResponseDto> insert(apiVersion, dto) async {
     return value;
   }
 
-  
-  
-Future<EmployeeUpdateResponseDto> update( dto, apiVersion) async {
+  Future<EmployeeUpdateResponseDto> update(dto, apiVersion) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -100,9 +94,6 @@ Future<EmployeeUpdateResponseDto> update( dto, apiVersion) async {
     final value = EmployeeUpdateResponseDto.fromJson(_result.data!);
     return value;
   }
-
-  
-
 
   @override
   Future<void> delete(apiVersion, id) async {

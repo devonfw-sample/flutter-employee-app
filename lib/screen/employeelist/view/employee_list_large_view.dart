@@ -133,9 +133,13 @@ class _ScreenState
               ),
               trailing: InkWell(
                 child: Icon(Icons.border_color_outlined),
-                onTap: () => {
-                  Navigator.pushNamed(context, "/employeeUpdateScreen",
-                      arguments: item),
+                onTap: () async {
+                  var results = await Navigator.pushNamed(
+                      context, "/employeeUpdateScreen",
+                      arguments: item);
+                  if (results != null) {
+                    getBloc!.add(RetrieveEmployeeListBlocEvent());
+                  }
                 },
               ),
               title: Text("${item.surname} ${item.name}",
