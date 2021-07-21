@@ -36,10 +36,10 @@ class EmployeeListRepository extends AbstractRepository {
 
   
   Future<EmployeeUpdateResponseDto> update(
-      String name, String surname, String email) {
+      int id, String name, String surname, String email) {
     EmployeeUpdateRequestDto dto =
-        EmployeeUpdateRequestDto(name, surname, email);
-    return restClient.update(dto, apiVersion);
+        EmployeeUpdateRequestDto(id, name, surname, email);
+    return restClient.update(dto, apiVersion,);
   }
 
   

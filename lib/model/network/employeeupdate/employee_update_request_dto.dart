@@ -3,11 +3,12 @@ part 'employee_update_request_dto.g.dart';
 
 @JsonSerializable()
 class EmployeeUpdateRequestDto {
+  final int id; 
   final String name;
   final String surname;
   final String email;
 
-  EmployeeUpdateRequestDto(this.name, this.surname, this.email);
+  EmployeeUpdateRequestDto(this.id, this.name, this.surname, this.email);
 
   factory EmployeeUpdateRequestDto.fromJson(Map<String, dynamic> json) =>
       _$EmployeeUpdateRequestDtoFromJson(json);

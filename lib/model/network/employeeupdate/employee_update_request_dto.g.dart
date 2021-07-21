@@ -9,6 +9,7 @@ part of 'employee_update_request_dto.dart';
 EmployeeUpdateRequestDto _$EmployeeUpdateRequestDtoFromJson(
     Map<String, dynamic> json) {
   return EmployeeUpdateRequestDto(
+    json['id'] as int,
     json['name'] as String,
     json['surname'] as String,
     json['email'] as String,
@@ -18,6 +19,7 @@ EmployeeUpdateRequestDto _$EmployeeUpdateRequestDtoFromJson(
 Map<String, dynamic> _$EmployeeUpdateRequestDtoToJson(
         EmployeeUpdateRequestDto instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'surname': instance.surname,
       'email': instance.email,

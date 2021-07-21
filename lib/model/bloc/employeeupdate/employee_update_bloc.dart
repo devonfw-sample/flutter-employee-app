@@ -8,17 +8,23 @@ import 'package:dio/dio.dart';
 class EmployeeUpdateBloc
     extends AbstractBloc<AbstractBlocEvent, AbstractBlocState> {
   EmployeeUpdateBloc() : super(EmptyInitialState());
-
+  int id =0; 
   @override
   Stream<AbstractBlocState> mapEventToState(AbstractBlocEvent event) async* {
+
+    if (event is RetrieveEmployeeIdBlocEvent) {
+      id = event.id;     
+    }
+
     try {
+
       if (event is EmployeeUpdateBlocEvent) {
         if (await hasConnectivity()) {
           yield LoadingState();
 
           var repository = EmployeeListRepository();
           var response =
-              await repository.update(event.name, event.surname, event.email);
+              await repository.update(id, event.name, event.surname, event.email);
           yield OnSuccessState(OnSuccessState.LOGIN, response);
         } else {
           yield NoConnectivityState();
@@ -38,10 +44,10 @@ class EmployeeUpdateBloc
   }
 }
 
-class RetrieveEmployeeDetailBlocEvent extends AbstractBlocEvent {
+class RetrieveEmployeeIdBlocEvent extends AbstractBlocEvent {
   final int id;
 
-  RetrieveEmployeeDetailBlocEvent(this.id);
+  RetrieveEmployeeIdBlocEvent(this.id);
 
   @override
   List<Object> get props => [id];

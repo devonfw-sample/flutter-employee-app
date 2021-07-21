@@ -9,7 +9,7 @@ part of 'employee_list_request_dto.dart';
 EmployeeListRequestDto _$EmployeeListRequestDtoFromJson(
     Map<String, dynamic> json) {
   return EmployeeListRequestDto(
-    json['employeeId'] as String?,
+    json['employeeId'] as int?,
     json['name'] as String?,
     json['surname'] as String?,
     json['email'] as String?,

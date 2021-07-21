@@ -1,7 +1,6 @@
 import 'package:devon4ng_flutter_application_template/model/bloc/bloc_state.dart';
 
 import 'package:devon4ng_flutter_application_template/model/bloc/employeeupdate/employee_update_bloc.dart';
-import 'package:devon4ng_flutter_application_template/model/network/employeedetail/employee_detail_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/model/network/employeelist/employee_list_content_response_dto.dart';
 import 'package:devon4ng_flutter_application_template/screen/abstract_state.dart';
 import 'package:devon4ng_flutter_application_template/themes.dart';
@@ -14,6 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
+
+
 class EmployeeUpdateNormalView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ScreenState();
@@ -25,33 +26,23 @@ class _ScreenState
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
   final TextEditingController _surnameTextController = TextEditingController();
-  EmployeeDetailResponseDto? employeeDetail;
+
   @override
   EmployeeUpdateBloc provideBloc() {
     return EmployeeUpdateBloc();
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget buildWidget(BuildContext context, AbstractBlocState state) {
-    Widget body;
-
+  Widget buildWidget(BuildContext buildContext, AbstractBlocState state) {
+    
     if (state is EmptyInitialState) {
       EmployeeListContentResponseDto item = ModalRoute.of(context)!
           .settings
           .arguments as EmployeeListContentResponseDto;
-      getBloc!.add(RetrieveEmployeeDetailBlocEvent(item.id));
+      getBloc!.add(RetrieveEmployeeIdBlocEvent(item.id));
     }
-    if (state is OnSuccessState) {
-      employeeDetail = state.data;
-      body = _insertForm(context, state.data);
-    } else {
-      body = Container();
-    }
+
+
     return PlatformScaffold(
         material: (_, __) =>
             MaterialScaffoldData(resizeToAvoidBottomInset: false),
@@ -62,14 +53,38 @@ class _ScreenState
         backgroundColor: Provider.of<AppTheme>(context).bg1,
         appBar: PlatformAppBar(
           backgroundColor: Provider.of<AppTheme>(context).mainMaterialColor,
-          title: Text("Update Employee"),
+          title: Text("Create Employee"),
         ),
-        body: body);
+        body: Center(
+          child: _insertForm(buildContext),
+        ));
+
+/*
+
+    List<Widget> children = <Widget>[];
+    children.add(Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 60 / 100,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 64, right: 64),
+        child: _insertForm(buildContext),
+      ),
+    ));
+
+    return PlatformScaffold(
+        material: (_, __) =>
+            MaterialScaffoldData(resizeToAvoidBottomInset: false),
+        backgroundColor: Colors.white,
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: children));*/
   }
 
   @override
   BlocWidgetListener<AbstractBlocState> provideBlocListener(
-      BuildContext context) {
+      BuildContext buildContext) {
     return (context, state) {
       if (state is LoadingState) {
         showDialog(
@@ -79,7 +94,11 @@ class _ScreenState
 
       if (state is OnSuccessState) {
         Navigator.pop(context);
+        //List<Cookie> results = CookieJar().loadForRequest(Uri.parse("http://10.24.219.91:8081"));
+        //print(results);
 
+        //Navigator.pushReplacementNamed(context, "/employeeDetailScreen");
+        //Navigator.pushReplacementNamed(context, "/employeeListScreen");
         var result = true;
         Navigator.pop(context, result);
 
@@ -102,8 +121,7 @@ class _ScreenState
         .hasMatch(email);
   }
 
-  Widget _insertForm(
-      BuildContext buildContext, EmployeeDetailResponseDto employeeDetail) {
+  Widget _insertForm(BuildContext buildContext) {
     return Form(
         key: _formKey,
         child: Column(children: <Widget>[

@@ -67,7 +67,7 @@ class _AppBootstrapperState extends State<AppBootstrapper> {
         barBackgroundColor: appModel.theme.barBackgroundCupertinoColor,
       )),
       */
-      initialRoute: "/splashScreen",
+      initialRoute: "/employeeListScreen",
       routes: <String, WidgetBuilder>{
         "/splashScreen": (context) => ScreenContainer(
               () => SplashNormalView(),

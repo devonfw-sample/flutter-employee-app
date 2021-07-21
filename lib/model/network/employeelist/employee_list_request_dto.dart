@@ -4,7 +4,7 @@ part 'employee_list_request_dto.g.dart';
 
 @JsonSerializable()
 class EmployeeListRequestDto {
-  final String? employeeId;
+  final int? employeeId;
   final String? name;
   final String? surname;
   final String? email;
